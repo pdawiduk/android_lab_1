@@ -6,11 +6,15 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class BasicActivity extends AppCompatActivity {
     private float syntA=0;
     private float syntB=0;
     private float result=0;
+    private StringBuilder mathText = new StringBuilder();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,4 +33,163 @@ public class BasicActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    private void clear(TextView tv){
+        tv.setText("");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        final TextView resultView = (TextView) findViewById(R.id.result_view);
+
+        Button b0 = (Button) findViewById(R.id.b0);
+        if (b0 != null) {
+            b0.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mathText.length()!=0)
+                            mathText.append("0");
+
+                    resultView.setText(mathText);
+                }
+            });
+        }
+        Button b1 = (Button) findViewById(R.id.b1);
+        if (b1 != null) {
+            b1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   mathText.append("1");
+                    resultView.setText(mathText);
+                }
+            });
+        }
+        Button b2 = (Button) findViewById(R.id.b2);
+
+        if (b2 != null) {
+            b2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mathText.append("2");
+                    resultView.setText(mathText);
+                }
+            });
+        }
+        Button b3 = (Button) findViewById(R.id.b3);
+        if (b3 != null) {
+            b3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mathText.append("3");
+                    resultView.setText(mathText);
+                }
+            });
+        }
+        Button b4 = (Button) findViewById(R.id.b4);
+        if (b4 != null) {
+            b4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mathText.append("4");
+                    resultView.setText(mathText);
+                }
+            });
+        }
+        Button b5 = (Button) findViewById(R.id.b5);
+        if (b5 != null) {
+            b5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mathText.append("5");
+                    resultView.setText(mathText);
+                }
+            });
+        }
+        Button b6 = (Button) findViewById(R.id.b6);
+        if (b6 != null) {
+            b6.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mathText.append("6");
+                    resultView.setText(mathText);
+                }
+            });
+        }
+        Button b7 = (Button) findViewById(R.id.b7);
+        if (b7 != null) {
+            b7.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mathText.append("7");
+                    resultView.setText(mathText);
+                }
+            });
+        }
+        Button b8 = (Button) findViewById(R.id.b8);
+        if (b8 != null) {
+            b8.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mathText.append("8");
+                    resultView.setText(mathText);
+                }
+            });
+        }
+        Button b9 = (Button) findViewById(R.id.b9);
+        if (b9 != null) {
+            b9.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mathText.append("9");
+                    resultView.setText(mathText);
+                }
+            });
+        }
+
+        Button bplus = (Button) findViewById(R.id.bplus);
+        bplus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                syntA=Float.parseFloat(mathText.toString());
+            }
+        });
+        Button bminus = (Button) findViewById(R.id.bminus);
+        Button bdiv = (Button) findViewById(R.id.bdiv);
+        Button bexp = (Button) findViewById(R.id.bmult);
+
+        Button bclear = (Button) findViewById(R.id.bclear);
+        bclear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mathText.delete(0,mathText.length());
+                resultView.setText(mathText);
+            }
+        });
+
+        Button bBsp = (Button) findViewById(R.id.bbksp);
+        bBsp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mathText.length()!=0){
+                mathText.deleteCharAt(mathText.length()-1);
+                resultView.setText(mathText);}
+            }
+        });
+
+        Button bdot = (Button) findViewById(R.id.bdot);
+
+        bdot.setOnClickListener(new View.OnClickListener() {
+                                  @Override
+                                  public void onClick(View v) {
+                                      mathText.append('.');
+                                      resultView.setText(mathText);
+                                  }
+                              });
+        Button bresult = (Button) findViewById(R.id.bresult);
+
+        Button bplusminus = (Button) findViewById(R.id.plus_minus);
+
+
+    }
 }
