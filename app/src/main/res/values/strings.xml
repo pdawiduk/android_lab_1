@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Calculator2</string>
+    <string name="start_string">Calculator</string>
+    <string name="title_activity_basic">Basic</string>
+    <string name="title_activity_advanced">AdvancedActivity</string>
+    <string name="title_activity_about">AboutActivity</string>
+</resources>
