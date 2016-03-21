@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BasicActivity extends AppCompatActivity {
 
@@ -16,6 +17,7 @@ public class BasicActivity extends AppCompatActivity {
     private float result = 0;
     private StringBuilder mathText = new StringBuilder();
     private int action = -1;
+    private static View view;
 
     final private static int PLUS = 1;
     final private static int MINUS = 2;
@@ -253,8 +255,14 @@ public class BasicActivity extends AppCompatActivity {
                         break;
                     case DIVORCED:
                         if (syntB == 0)
-                            Snackbar.make(v, "you can't divorced 0", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
+//                            Snackbar.make(v, "you can't divorced 0", Snackbar.LENGTH_LONG)
+//                                    .setAction("Action", null).show();
+                            Toast.makeText(getBaseContext(), "you cant do it this ",Toast.LENGTH_SHORT).show();
+
+                        else {
+                            result= syntA / syntB;
+                            resultView.setText(Float.toString(result));
+                        }
                         break;
                 }
             }
