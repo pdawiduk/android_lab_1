@@ -10,10 +10,20 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class BasicActivity extends AppCompatActivity {
-    private float syntA=0;
-    private float syntB=0;
-    private float result=0;
+
+    private float syntA = 0;
+    private float syntB = 0;
+    private float result = 0;
     private StringBuilder mathText = new StringBuilder();
+    private int action = -1;
+
+    final private static int PLUS = 1;
+    final private static int MINUS = 2;
+    final private static int DIVORCED = 3;
+    final private static int MULTIPLE = 4;
+
+    private static boolean dotPressed = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +43,14 @@ public class BasicActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private void clear(TextView tv){
+    private void clear(TextView tv) {
         tv.setText("");
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
+
 
         final TextView resultView = (TextView) findViewById(R.id.result_view);
 
@@ -48,8 +59,8 @@ public class BasicActivity extends AppCompatActivity {
             b0.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mathText.length()!=0)
-                            mathText.append("0");
+                    if (mathText.length() != 0)
+                        mathText.append("0");
 
                     resultView.setText(mathText);
                 }
@@ -60,7 +71,7 @@ public class BasicActivity extends AppCompatActivity {
             b1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   mathText.append("1");
+                    mathText.append("1");
                     resultView.setText(mathText);
                 }
             });
@@ -151,18 +162,50 @@ public class BasicActivity extends AppCompatActivity {
         bplus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                syntA=Float.parseFloat(mathText.toString());
+                syntA = Float.parseFloat(mathText.toString());
+                mathText.delete(0, mathText.length());
+                resultView.setText(mathText);
+                action = PLUS;
+
             }
         });
+
         Button bminus = (Button) findViewById(R.id.bminus);
+        bminus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                syntA = Float.parseFloat(mathText.toString());
+                action = MINUS;
+                mathText.delete(0, mathText.length());
+                resultView.setText(mathText);
+            }
+        });
         Button bdiv = (Button) findViewById(R.id.bdiv);
+        bdiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                syntA = Float.parseFloat(mathText.toString());
+                action = DIVORCED;
+                mathText.delete(0, mathText.length());
+                resultView.setText(mathText);
+            }
+        });
         Button bexp = (Button) findViewById(R.id.bmult);
+        bexp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                syntA = Float.parseFloat(mathText.toString());
+                action = MULTIPLE;
+                mathText.delete(0, mathText.length());
+                resultView.setText(mathText);
+            }
+        });
 
         Button bclear = (Button) findViewById(R.id.bclear);
         bclear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mathText.delete(0,mathText.length());
+                mathText.delete(0, mathText.length());
                 resultView.setText(mathText);
             }
         });
@@ -171,22 +214,51 @@ public class BasicActivity extends AppCompatActivity {
         bBsp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mathText.length()!=0){
-                mathText.deleteCharAt(mathText.length()-1);
-                resultView.setText(mathText);}
+                if (mathText.length() != 0) {
+                    mathText.deleteCharAt(mathText.length() - 1);
+                    resultView.setText(mathText);
+                }
             }
         });
 
         Button bdot = (Button) findViewById(R.id.bdot);
 
         bdot.setOnClickListener(new View.OnClickListener() {
-                                  @Override
-                                  public void onClick(View v) {
-                                      mathText.append('.');
-                                      resultView.setText(mathText);
-                                  }
-                              });
+            @Override
+            public void onClick(View v) {
+                if (dotPressed == false) {
+                    dotPressed = true;
+                    mathText.append('.');
+                    resultView.setText(mathText);
+                }
+            }
+        });
         Button bresult = (Button) findViewById(R.id.bresult);
+        bresult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                syntB = Float.parseFloat(mathText.toString());
+                switch(action){
+                    case PLUS:
+                        result = syntA +syntB;
+                        resultView.setText(Float.toString(result) );
+                        break;
+                    case MINUS:
+                        result = syntA - syntB;
+                        resultView.setText(Float.toString(result) );
+                        break;
+                    case MULTIPLE:
+                        result = syntA * syntB;
+                        resultView.setText(Float.toString(result) );
+                        break;
+                    case DIVORCED:
+                        if (syntB == 0)
+                            Snackbar.make(v, "you can't divorced 0", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        break;
+                }
+            }
+        });
 
         Button bplusminus = (Button) findViewById(R.id.plus_minus);
 
