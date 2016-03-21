@@ -288,6 +288,15 @@ public class BasicActivity extends AppCompatActivity {
 
         Button bplusminus = (Button) findViewById(R.id.plus_minus);
 
+        bplusminus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                float tmp = new Float(resultView.getText().toString());
+                resultView.setText(Float.toString(-1*tmp));
+
+            }
+        });
+
 
     }
 }

@@ -4,4 +4,23 @@
     <string name="title_activity_basic">Basic</string>
     <string name="title_activity_advanced">AdvancedActivity</string>
     <string name="title_activity_about">AboutActivity</string>
+    <string name="n0">0</string>
+    <string name="bksp_button">Bksp</string>
+    <string name="clear_button">C</string>
+    <string name="plus_minus_Button">+-</string>
+    <string name="btn7">7</string>
+    <string name="btn8">8</string>
+    <string name="btn9">9</string>
+    <string name="btn_div">/</string>
+    <string name="btn5">5</string>
+    <string name="btn6">6</string>
+    <string name="btn_razy">*</string>
+    <string name="btn1">1</string>
+    <string name="btn2">2</string>
+    <string name="btn3">3</string>
+    <string name="btn_minus">-</string>
+    <string name="btn0">0</string>
+    <string name="btn_dot">.</string>
+    <string name="btn_result">=</string>
+    <string name="btn_plus">+</string>
 </resources>

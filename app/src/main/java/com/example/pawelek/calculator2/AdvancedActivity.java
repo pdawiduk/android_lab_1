@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class AdvancedActivity extends AppCompatActivity {
     private float syntA = 0;
     private float syntB = 0;
-    private float result = 0;
+    private double result = 0;
     private StringBuilder mathText = new StringBuilder();
     private int action = -1;
     private static View view;
@@ -21,7 +21,14 @@ public class AdvancedActivity extends AppCompatActivity {
     final private static int MINUS = 2;
     final private static int DIVORCED = 3;
     final private static int MULTIPLE = 4;
-
+    final private static int POW2 = 5;
+    final private static int SQRT = 6;
+    final private static int POW_Y = 7;
+    final private static int SIN = 8;
+    final private static int COS = 9;
+    final private static int TAN = 10;
+    final private static int LN = 11;
+    final private static int LOG = 12;
     private static boolean dotPressed = false;
 
     @Override
@@ -242,6 +249,96 @@ public class AdvancedActivity extends AppCompatActivity {
                 }
             });
         }
+
+        Button bSin = (Button) findViewById(R.id.b_sin);
+        bSin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                action = SIN;
+                double tmp = new Float(mathText.toString());
+                double radians = Math.toRadians(tmp);
+                result = Math.sin(radians);
+                resultView.setText(Double.toString(result));
+            }
+        });
+
+        Button bcos = (Button) findViewById(R.id.b_cos);
+        bcos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                action = COS;
+                double tmp = new Float(mathText.toString());
+                double radians = Math.toRadians(tmp);
+                result = Math.cos(radians);
+                resultView.setText(Double.toString(result));
+
+            }
+        });
+        Button btan = (Button) findViewById(R.id.b_tan);
+        btan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                action = TAN;
+                double tmp = new Float(mathText.toString());
+                double radians = Math.toRadians(tmp);
+                result = Math.tan(radians);
+                resultView.setText(Double.toString(result));
+            }
+        });
+        Button bln = (Button) findViewById(R.id.b_ln);
+        bln.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                action = LN;
+                double tmp = new Float(mathText.toString());
+
+                result = Math.log(tmp);
+                resultView.setText(Double.toString(result));
+            }
+        });
+
+        Button bSqrt = (Button) findViewById(R.id.b_sqrt);
+        bSqrt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                action = SQRT;
+                double tmp = new Float( mathText.toString());
+
+                result = Math.sqrt(tmp);
+                resultView.setText(Double.toString(result));
+            }
+        });
+        Button bX2 = (Button) findViewById(R.id.b_pow2);
+        bX2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                action = POW2;
+                double tmp = new Float( mathText.toString());
+                result = Math.pow(tmp, 2);
+                resultView.setText(Double.toString(result));
+            }
+        });
+        Button bXY = (Button) findViewById(R.id.b_powy);
+        bXY.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                syntA = Float.parseFloat(mathText.toString());
+                action = POW_Y;
+                mathText.delete(0, mathText.length());
+                resultView.setText(mathText);
+            }
+        });
+        Button bLog = (Button) findViewById(R.id.b_log);
+        bLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                action = LOG;
+                double tmp = new Float( mathText.toString());
+                result = Math.log(tmp);
+                resultView.setText(Double.toString(result));
+            }
+        });
+
         Button bresult = (Button) findViewById(R.id.bresult);
         if (bresult != null) {
             bresult.setOnClickListener(new View.OnClickListener() {
@@ -251,16 +348,22 @@ public class AdvancedActivity extends AppCompatActivity {
                     switch (action) {
                         case PLUS:
                             result = syntA + syntB;
-                            resultView.setText(Float.toString(result));
+                            resultView.setText(Double.toString(result));
                             break;
                         case MINUS:
                             result = syntA - syntB;
-                            resultView.setText(Float.toString(result));
+                            resultView.setText(Double.toString(result));
                             break;
                         case MULTIPLE:
                             result = syntA * syntB;
-                            resultView.setText(Float.toString(result));
+                            resultView.setText(Double.toString(result));
                             break;
+
+                        case POW_Y:
+                            result= Math.pow(syntA,syntB);
+                            resultView.setText(Double.toString(result));
+                            break;
+
                         case DIVORCED:
                             if (syntB == 0) {
                                 Snackbar.make(v, "you can't divorced 0", Snackbar.LENGTH_LONG)
@@ -268,15 +371,24 @@ public class AdvancedActivity extends AppCompatActivity {
                                 break;
                             } else {
                                 result = syntA / syntB;
-                                resultView.setText(Float.toString(result));
+                                resultView.setText(Double.toString(result));
                             }
                             break;
+
                     }
                 }
             });
         }
 
         Button bplusminus = (Button) findViewById(R.id.plus_minus);
+        bplusminus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                float tmp = new Float(resultView.getText().toString());
+                resultView.setText(Float.toString(-1 * tmp));
+
+            }
+        });
 
 
     }
