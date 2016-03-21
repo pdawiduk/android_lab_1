@@ -161,112 +161,130 @@ public class BasicActivity extends AppCompatActivity {
         }
 
         Button bplus = (Button) findViewById(R.id.bplus);
-        bplus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                syntA = Float.parseFloat(mathText.toString());
-                mathText.delete(0, mathText.length());
-                resultView.setText(mathText);
-                action = PLUS;
+        if (bplus != null) {
+            bplus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    syntA = Float.parseFloat(mathText.toString());
+                    mathText.delete(0, mathText.length());
+                    resultView.setText(mathText);
+                    action = PLUS;
 
-            }
-        });
+                }
+            });
+        }
 
         Button bminus = (Button) findViewById(R.id.bminus);
-        bminus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                syntA = Float.parseFloat(mathText.toString());
-                action = MINUS;
-                mathText.delete(0, mathText.length());
-                resultView.setText(mathText);
-            }
-        });
-        Button bdiv = (Button) findViewById(R.id.bdiv);
-        bdiv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                syntA = Float.parseFloat(mathText.toString());
-                action = DIVORCED;
-                mathText.delete(0, mathText.length());
-                resultView.setText(mathText);
-            }
-        });
-        Button bexp = (Button) findViewById(R.id.bmult);
-        bexp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                syntA = Float.parseFloat(mathText.toString());
-                action = MULTIPLE;
-                mathText.delete(0, mathText.length());
-                resultView.setText(mathText);
-            }
-        });
-
-        Button bclear = (Button) findViewById(R.id.bclear);
-        bclear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mathText.delete(0, mathText.length());
-                resultView.setText(mathText);
-            }
-        });
-
-        Button bBsp = (Button) findViewById(R.id.bbksp);
-        bBsp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mathText.length() != 0) {
-                    mathText.deleteCharAt(mathText.length() - 1);
+        if (bminus != null) {
+            bminus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    syntA = Float.parseFloat(mathText.toString());
+                    action = MINUS;
+                    mathText.delete(0, mathText.length());
                     resultView.setText(mathText);
                 }
-            }
-        });
+            });
+        }
+        Button bdiv = (Button) findViewById(R.id.bdiv);
+        if (bdiv != null) {
+            bdiv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    syntA = Float.parseFloat(mathText.toString());
+                    action = DIVORCED;
+                    mathText.delete(0, mathText.length());
+                    resultView.setText(mathText);
+                }
+            });
+        }
+        Button bexp = (Button) findViewById(R.id.bmult);
+        if (bexp != null) {
+            bexp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    syntA = Float.parseFloat(mathText.toString());
+                    action = MULTIPLE;
+                    mathText.delete(0, mathText.length());
+                    resultView.setText(mathText);
+                }
+            });
+        }
+
+        Button bclear = (Button) findViewById(R.id.bclear);
+        if (bclear != null) {
+            bclear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mathText.delete(0, mathText.length());
+                    resultView.setText(mathText);
+                }
+            });
+        }
+
+        Button bBsp = (Button) findViewById(R.id.bbksp);
+        if (bBsp != null) {
+            bBsp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mathText.length() != 0) {
+                        mathText.deleteCharAt(mathText.length() - 1);
+                        resultView.setText(mathText);
+                    }
+                }
+            });
+        }
 
         Button bdot = (Button) findViewById(R.id.bdot);
 
-        bdot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dotPressed == false) {
-                    dotPressed = true;
-                    mathText.append('.');
-                    resultView.setText(mathText);
+        if (bdot != null) {
+            bdot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (dotPressed == false) {
+                        dotPressed = true;
+                        mathText.append('.');
+                        resultView.setText(mathText);
+                    }
                 }
-            }
-        });
+            });
+        }
         Button bresult = (Button) findViewById(R.id.bresult);
-        bresult.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                syntB = Float.parseFloat(mathText.toString());
-                switch(action){
-                    case PLUS:
-                        result = syntA +syntB;
-                        resultView.setText(Float.toString(result) );
-                        break;
-                    case MINUS:
-                        result = syntA - syntB;
-                        resultView.setText(Float.toString(result) );
-                        break;
-                    case MULTIPLE:
-                        result = syntA * syntB;
-                        resultView.setText(Float.toString(result) );
-                        break;
-                    case DIVORCED:
-                        if (syntB == 0)
-//                            Snackbar.make(v, "you can't divorced 0", Snackbar.LENGTH_LONG)
-//                                    .setAction("Action", null).show();
-                            Toast.makeText(getBaseContext(), "you cant do it this ",Toast.LENGTH_SHORT).show();
+        if (bresult != null) {
+            bresult.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    syntB = Float.parseFloat(mathText.toString());
+                    switch(action){
+                        case PLUS:
+                            result = syntA +syntB;
+                            resultView.setText(Float.toString(result) );
+                            break;
+                        case MINUS:
+                            result = syntA - syntB;
+                            resultView.setText(Float.toString(result) );
+                            break;
+                        case MULTIPLE:
+                            result = syntA * syntB;
+                            resultView.setText(Float.toString(result) );
+                            break;
+                        case DIVORCED:
+                            if (syntB == 0){
+                                Snackbar.make(v, "you can't divorced 0", Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show();
+                                break;}
 
-                        else {
-                            result= syntA / syntB;
-                            resultView.setText(Float.toString(result));
-                        }
-                        break;
+
+
+                            else {
+                                result= syntA / syntB;
+                                resultView.setText(Float.toString(result));
+                            }
+                            break;
+                    }
                 }
-            }
-        });
+            });
+        }
 
         Button bplusminus = (Button) findViewById(R.id.plus_minus);
 
