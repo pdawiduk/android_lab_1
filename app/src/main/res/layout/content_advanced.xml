@@ -12,14 +12,14 @@
     tools:context="com.example.pawelek.calculator2.AdvancedActivity"
     tools:showIn="@layout/activity_advanced"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:id="@+id/advanced_layout">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.31"
         android:id="@+id/result_view"
-        android:hint="0"
         android:textAlignment="viewEnd"/>
 
     <LinearLayout

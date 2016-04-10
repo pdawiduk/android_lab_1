@@ -5,12 +5,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class AdvancedActivity extends AppCompatActivity {
     private float syntA = 0;
+    private static final String LOG_TAG= AdvancedActivity.class.getSimpleName();
     private float syntB = 0;
     private double result = 0;
     private StringBuilder mathText = new StringBuilder();
@@ -31,6 +33,7 @@ public class AdvancedActivity extends AppCompatActivity {
     final private static int LOG = 12;
     private static boolean dotPressed = false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,7 @@ public class AdvancedActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
@@ -61,7 +65,7 @@ public class AdvancedActivity extends AppCompatActivity {
             b0.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mathText.length() != 0)
+
                         mathText.append("0");
 
                     resultView.setText(mathText);
@@ -344,7 +348,10 @@ public class AdvancedActivity extends AppCompatActivity {
             bresult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    syntB = Float.parseFloat(mathText.toString());
+                    Log.i(LOG_TAG, "tutaj masz problem "+mathText.toString());
+                    if(mathText.equals("")) syntB =0;
+
+                    else syntB = Float.parseFloat(mathText.toString());
                     switch (action) {
                         case PLUS:
                             result = syntA + syntB;
@@ -366,8 +373,8 @@ public class AdvancedActivity extends AppCompatActivity {
 
                         case DIVORCED:
                             if (syntB == 0) {
-                                Snackbar.make(v, "you can't divorced 0", Snackbar.LENGTH_LONG)
-                                        .setAction("Action", null).show();
+                                Snackbar.make(findViewById(R.id.advanced_layout),"illegal operation",Snackbar.LENGTH_LONG).show();
+
                                 break;
                             } else {
                                 result = syntA / syntB;

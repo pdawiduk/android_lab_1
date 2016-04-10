@@ -61,8 +61,8 @@ public class BasicActivity extends AppCompatActivity {
             b0.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mathText.length() != 0)
-                        mathText.append("0");
+
+                    mathText.append("0");
 
                     resultView.setText(mathText);
                 }
@@ -255,29 +255,26 @@ public class BasicActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     syntB = Float.parseFloat(mathText.toString());
-                    switch(action){
+                    switch (action) {
                         case PLUS:
-                            result = syntA +syntB;
-                            resultView.setText(Float.toString(result) );
+                            result = syntA + syntB;
+                            resultView.setText(Float.toString(result));
                             break;
                         case MINUS:
                             result = syntA - syntB;
-                            resultView.setText(Float.toString(result) );
+                            resultView.setText(Float.toString(result));
                             break;
                         case MULTIPLE:
                             result = syntA * syntB;
-                            resultView.setText(Float.toString(result) );
+                            resultView.setText(Float.toString(result));
                             break;
                         case DIVORCED:
-                            if (syntB == 0){
+                            if (syntB == 0) {
                                 Snackbar.make(v, "you can't divorced 0", Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show();
-                                break;}
-
-
-
-                            else {
-                                result= syntA / syntB;
+                                break;
+                            } else {
+                                result = syntA / syntB;
                                 resultView.setText(Float.toString(result));
                             }
                             break;
@@ -292,7 +289,7 @@ public class BasicActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 float tmp = new Float(resultView.getText().toString());
-                resultView.setText(Float.toString(-1*tmp));
+                resultView.setText(Float.toString(-1 * tmp));
 
             }
         });
