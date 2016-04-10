@@ -270,7 +270,7 @@ public class BasicActivity extends AppCompatActivity {
                             break;
                         case DIVORCED:
                             if (syntB == 0) {
-                                Snackbar.make(v, "you can't divorced 0", Snackbar.LENGTH_LONG)
+                                Snackbar.make(findViewById(R.id.basic_layout), "you can't divorced 0", Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show();
                                 break;
                             } else {

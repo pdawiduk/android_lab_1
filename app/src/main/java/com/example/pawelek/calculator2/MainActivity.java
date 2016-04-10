@@ -42,7 +42,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        aboutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,AboutActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                System.exit(0);
+            }
+        });
     }
 
 }
