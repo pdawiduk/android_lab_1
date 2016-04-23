@@ -12,20 +12,33 @@ import android.widget.Toast;
 
 public class BasicActivity extends AppCompatActivity {
 
-    private float syntA = 0;
-    private float syntB = 0;
+    private static float syntA = 0;
+    private static float syntB = 0;
     private float result = 0;
     private StringBuilder mathText = new StringBuilder();
-    private int action = -1;
+
     private static View view;
 
+    final private static int NOTHING = 0;
     final private static int PLUS = 1;
     final private static int MINUS = 2;
     final private static int DIVORCED = 3;
     final private static int MULTIPLE = 4;
 
+    private int action = NOTHING;
+
     private static boolean dotPressed = false;
 
+     private void handleOperations(TextView tv){
+        try {
+            this.syntA = Float.parseFloat(mathText.toString());
+        } catch (Exception e) {
+            this.syntA = 0;
+        }
+
+        mathText.delete(0, mathText.length());
+        tv.setText(mathText);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +68,7 @@ public class BasicActivity extends AppCompatActivity {
 
 
         final TextView resultView = (TextView) findViewById(R.id.result_view);
+        resultView.setHint("0");
 
         Button b0 = (Button) findViewById(R.id.b0);
         if (b0 != null) {
@@ -62,8 +76,7 @@ public class BasicActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    mathText.append("0");
-
+                    mathText.append(getString(R.string.button_0));
                     resultView.setText(mathText);
                 }
             });
@@ -73,7 +86,7 @@ public class BasicActivity extends AppCompatActivity {
             b1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mathText.append("1");
+                    mathText.append(getString(R.string.button_1));
                     resultView.setText(mathText);
                 }
             });
@@ -84,7 +97,7 @@ public class BasicActivity extends AppCompatActivity {
             b2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mathText.append("2");
+                    mathText.append(getString(R.string.button_2));
                     resultView.setText(mathText);
                 }
             });
@@ -94,7 +107,7 @@ public class BasicActivity extends AppCompatActivity {
             b3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mathText.append("3");
+                    mathText.append(getString(R.string.button_3));
                     resultView.setText(mathText);
                 }
             });
@@ -104,7 +117,7 @@ public class BasicActivity extends AppCompatActivity {
             b4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mathText.append("4");
+                    mathText.append(getString(R.string.button_4));
                     resultView.setText(mathText);
                 }
             });
@@ -114,7 +127,7 @@ public class BasicActivity extends AppCompatActivity {
             b5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mathText.append("5");
+                    mathText.append(getString(R.string.button_5));
                     resultView.setText(mathText);
                 }
             });
@@ -124,7 +137,7 @@ public class BasicActivity extends AppCompatActivity {
             b6.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mathText.append("6");
+                    mathText.append(getString(R.string.button_6));
                     resultView.setText(mathText);
                 }
             });
@@ -134,7 +147,7 @@ public class BasicActivity extends AppCompatActivity {
             b7.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mathText.append("7");
+                    mathText.append(getString(R.string.button_7));
                     resultView.setText(mathText);
                 }
             });
@@ -144,7 +157,7 @@ public class BasicActivity extends AppCompatActivity {
             b8.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mathText.append("8");
+                    mathText.append(getString(R.string.button_8));
                     resultView.setText(mathText);
                 }
             });
@@ -154,7 +167,7 @@ public class BasicActivity extends AppCompatActivity {
             b9.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mathText.append("9");
+                    mathText.append(getString(R.string.button_9));
                     resultView.setText(mathText);
                 }
             });
@@ -165,9 +178,7 @@ public class BasicActivity extends AppCompatActivity {
             bplus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    syntA = Float.parseFloat(mathText.toString());
-                    mathText.delete(0, mathText.length());
-                    resultView.setText(mathText);
+                    handleOperations(resultView);
                     action = PLUS;
 
                 }
@@ -179,10 +190,9 @@ public class BasicActivity extends AppCompatActivity {
             bminus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    syntA = Float.parseFloat(mathText.toString());
+                    handleOperations(resultView);
                     action = MINUS;
-                    mathText.delete(0, mathText.length());
-                    resultView.setText(mathText);
+
                 }
             });
         }
@@ -191,11 +201,12 @@ public class BasicActivity extends AppCompatActivity {
             bdiv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    syntA = Float.parseFloat(mathText.toString());
+                    handleOperations(resultView);
                     action = DIVORCED;
-                    mathText.delete(0, mathText.length());
-                    resultView.setText(mathText);
+
                 }
+
+
             });
         }
         Button bexp = (Button) findViewById(R.id.bmult);
@@ -203,10 +214,10 @@ public class BasicActivity extends AppCompatActivity {
             bexp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    syntA = Float.parseFloat(mathText.toString());
+                    handleOperations(resultView);
+
                     action = MULTIPLE;
-                    mathText.delete(0, mathText.length());
-                    resultView.setText(mathText);
+
                 }
             });
         }
@@ -251,34 +262,70 @@ public class BasicActivity extends AppCompatActivity {
         }
         Button bresult = (Button) findViewById(R.id.bresult);
         if (bresult != null) {
+            if (mathText.toString().isEmpty()) {
+                syntA = 0;
+            }
             bresult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    syntB = Float.parseFloat(mathText.toString());
+
                     switch (action) {
                         case PLUS:
+                            try {
+                                syntB = Float.parseFloat(mathText.toString());
+                            } catch (Exception e) {
+                                resultView.setText("0");
+                            }
                             result = syntA + syntB;
+                            syntA = result;
                             resultView.setText(Float.toString(result));
                             break;
+
                         case MINUS:
+                            try {
+                                syntB = Float.parseFloat(mathText.toString());
+                            } catch (Exception e) {
+                                resultView.setText("0");
+                            }
                             result = syntA - syntB;
+                            syntA = result;
                             resultView.setText(Float.toString(result));
                             break;
+
                         case MULTIPLE:
+                            try {
+                                syntB = Float.parseFloat(mathText.toString());
+                            } catch (Exception e) {
+                                resultView.setText("0");
+                            }
                             result = syntA * syntB;
+                            syntA = result;
                             resultView.setText(Float.toString(result));
                             break;
+
                         case DIVORCED:
+                            try {
+                                syntB = Float.parseFloat(mathText.toString());
+                            } catch (Exception e) {
+                                resultView.setText("0");
+                            }
                             if (syntB == 0) {
                                 Snackbar.make(findViewById(R.id.basic_layout), "you can't divorced 0", Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show();
                                 break;
                             } else {
                                 result = syntA / syntB;
+                                syntA = result;
                                 resultView.setText(Float.toString(result));
                             }
                             break;
+                        case NOTHING:
+
+                            if (resultView.toString().isEmpty())
+                                resultView.setText("0");
+                            break;
                     }
+
                 }
             });
         }

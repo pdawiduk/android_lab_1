@@ -12,13 +12,14 @@ import android.widget.TextView;
 
 public class AdvancedActivity extends AppCompatActivity {
     private float syntA = 0;
-    private static final String LOG_TAG= AdvancedActivity.class.getSimpleName();
+    private static final String LOG_TAG = AdvancedActivity.class.getSimpleName();
     private float syntB = 0;
     private double result = 0;
     private StringBuilder mathText = new StringBuilder();
-    private int action = -1;
-    private static View view;
+    private int action = NOTHING;
 
+    private static View view;
+    final private static int NOTHING = 0;
     final private static int PLUS = 1;
     final private static int MINUS = 2;
     final private static int DIVORCED = 3;
@@ -66,7 +67,7 @@ public class AdvancedActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                        mathText.append("0");
+                    mathText.append("0");
 
                     resultView.setText(mathText);
                 }
@@ -169,7 +170,11 @@ public class AdvancedActivity extends AppCompatActivity {
             bplus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    syntA = Float.parseFloat(mathText.toString());
+                    try {
+                        syntA = Float.parseFloat(mathText.toString());
+                    } catch (Exception e) {
+                        syntA = 0;
+                    }
                     mathText.delete(0, mathText.length());
                     resultView.setText(mathText);
                     action = PLUS;
@@ -183,7 +188,11 @@ public class AdvancedActivity extends AppCompatActivity {
             bminus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    syntA = Float.parseFloat(mathText.toString());
+                    try {
+                        syntA = Float.parseFloat(mathText.toString());
+                    } catch (Exception e) {
+                        syntA = 0;
+                    }
                     action = MINUS;
                     mathText.delete(0, mathText.length());
                     resultView.setText(mathText);
@@ -195,7 +204,11 @@ public class AdvancedActivity extends AppCompatActivity {
             bdiv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    syntA = Float.parseFloat(mathText.toString());
+                    try {
+                        syntA = Float.parseFloat(mathText.toString());
+                    } catch (Exception e) {
+                        syntA = 0;
+                    }
                     action = DIVORCED;
                     mathText.delete(0, mathText.length());
                     resultView.setText(mathText);
@@ -207,7 +220,11 @@ public class AdvancedActivity extends AppCompatActivity {
             bexp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    syntA = Float.parseFloat(mathText.toString());
+                    try {
+                        syntA = Float.parseFloat(mathText.toString());
+                    } catch (Exception e) {
+                        syntA = 0;
+                    }
                     action = MULTIPLE;
                     mathText.delete(0, mathText.length());
                     resultView.setText(mathText);
@@ -306,9 +323,13 @@ public class AdvancedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 action = SQRT;
-                double tmp = new Float( mathText.toString());
-
-                result = Math.sqrt(tmp);
+                double tmp;
+                try {
+                    tmp = new Float(mathText.toString());
+                    result = Math.sqrt(tmp);
+                } catch (Exception e) {
+                    result = Math.sqrt(0);
+                }
                 resultView.setText(Double.toString(result));
             }
         });
@@ -317,16 +338,27 @@ public class AdvancedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 action = POW2;
-                double tmp = new Float( mathText.toString());
-                result = Math.pow(tmp, 2);
+                double tmp;
+                try {
+                    tmp = new Float(mathText.toString());
+                    result = Math.pow(tmp, 2);
+                } catch (Exception e) {
+                    result = Math.pow(0, 2);
+                }
                 resultView.setText(Double.toString(result));
+
+
             }
         });
         Button bXY = (Button) findViewById(R.id.b_powy);
         bXY.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                syntA = Float.parseFloat(mathText.toString());
+                try {
+                    syntA = Float.parseFloat(mathText.toString());
+                } catch (Exception e) {
+                    syntA = 0;
+                }
                 action = POW_Y;
                 mathText.delete(0, mathText.length());
                 resultView.setText(mathText);
@@ -337,9 +369,14 @@ public class AdvancedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 action = LOG;
-                double tmp = new Float( mathText.toString());
-                result = Math.log(tmp);
-                resultView.setText(Double.toString(result));
+                double tmp;
+                try {
+                     tmp = new Float(mathText.toString());
+                } catch (Exception e) {
+                    result = Math.log(0);}
+                    resultView.setText(Double.toString(result));
+
+
             }
         });
 
@@ -348,38 +385,68 @@ public class AdvancedActivity extends AppCompatActivity {
             bresult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.i(LOG_TAG, "tutaj masz problem "+mathText.toString());
-                    if(mathText.equals("")) syntB =0;
+                    Log.i(LOG_TAG, "tutaj masz problem " + mathText.toString());
 
-                    else syntB = Float.parseFloat(mathText.toString());
                     switch (action) {
                         case PLUS:
+                            try {
+                                syntB = Float.parseFloat(mathText.toString());
+                            } catch (Exception e) {
+                                resultView.setText("0");
+                            }
                             result = syntA + syntB;
                             resultView.setText(Double.toString(result));
                             break;
                         case MINUS:
+                            try {
+                                syntB = Float.parseFloat(mathText.toString());
+                            } catch (Exception e) {
+                                resultView.setText("0");
+                            }
                             result = syntA - syntB;
                             resultView.setText(Double.toString(result));
                             break;
                         case MULTIPLE:
+                            try {
+                                syntB = Float.parseFloat(mathText.toString());
+                            } catch (Exception e) {
+                                resultView.setText("0");
+                            }
                             result = syntA * syntB;
                             resultView.setText(Double.toString(result));
                             break;
 
                         case POW_Y:
-                            result= Math.pow(syntA,syntB);
+                            try {
+                                syntB = Float.parseFloat(mathText.toString());
+                            } catch (Exception e) {
+                                resultView.setText("0");
+                            }
+                            result = Math.pow(syntA, syntB);
                             resultView.setText(Double.toString(result));
                             break;
 
                         case DIVORCED:
                             if (syntB == 0) {
-                                Snackbar.make(findViewById(R.id.advanced_layout),"illegal operation",Snackbar.LENGTH_LONG).show();
+                                Snackbar.make(findViewById(R.id.advanced_layout), "illegal operation", Snackbar.LENGTH_LONG).show();
 
                                 break;
                             } else {
+                                try {
+                                    syntB = Float.parseFloat(mathText.toString());
+                                } catch (Exception e) {
+                                    resultView.setText("0");
+                                }
                                 result = syntA / syntB;
                                 resultView.setText(Double.toString(result));
                             }
+                            break;
+                        case NOTHING:
+
+
+                            if (resultView.toString().isEmpty())
+                                resultView.setText("0");
+
                             break;
 
                     }
