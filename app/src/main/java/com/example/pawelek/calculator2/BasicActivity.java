@@ -8,12 +8,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class BasicActivity extends AppCompatActivity {
 
-    private static float syntA = 0;
-    private static float syntB = 0;
+    private float syntA = 0;
+    private float syntB = 0;
     private float result = 0;
     private StringBuilder mathText = new StringBuilder();
 
@@ -28,10 +27,15 @@ public class BasicActivity extends AppCompatActivity {
     private int action = NOTHING;
 
     private static boolean dotPressed = false;
+    private static boolean resultFlag = false;
 
-     private void handleOperations(TextView tv){
+    private void handleOperations(TextView tv) {
+
         try {
-            this.syntA = Float.parseFloat(mathText.toString());
+            if (!resultFlag) {
+                this.syntA = Float.parseFloat(mathText.toString());
+            } else syntA = result;
+
         } catch (Exception e) {
             this.syntA = 0;
         }
@@ -46,6 +50,8 @@ public class BasicActivity extends AppCompatActivity {
         setContentView(R.layout.activity_basic2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -229,6 +235,10 @@ public class BasicActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     mathText.delete(0, mathText.length());
                     resultView.setText(mathText);
+                    resultFlag = false;
+                    syntA = 0;
+                    syntB = 0;
+                    result = 0;
                 }
             });
         }
@@ -268,7 +278,7 @@ public class BasicActivity extends AppCompatActivity {
             bresult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    resultFlag = true;
                     switch (action) {
                         case PLUS:
                             try {
