@@ -50,6 +50,18 @@ public class AdvancedActivity extends AppCompatActivity {
         tv.setText(mathText);
     }
 
+    private double getCorrectValue(){
+        try {
+            if (!resultFlag) {
+                return Float.parseFloat(mathText.toString());
+            } else return result;
+
+        } catch (Exception e) {
+            return  0;
+        }
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -271,7 +283,7 @@ public class AdvancedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 action = SIN;
-                double tmp = new Float(mathText.toString());
+                double tmp = getCorrectValue();
                 double radians = Math.toRadians(tmp);
                 result = Math.sin(radians);
                 resultView.setText(Double.toString(result));
@@ -284,7 +296,7 @@ public class AdvancedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 action = COS;
-                double tmp = new Float(mathText.toString());
+                double tmp = getCorrectValue();
                 double radians = Math.toRadians(tmp);
                 result = Math.cos(radians);
                 resultView.setText(Double.toString(result));
@@ -297,7 +309,7 @@ public class AdvancedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 action = TAN;
-                double tmp = new Float(mathText.toString());
+                double tmp = getCorrectValue();
                 double radians = Math.toRadians(tmp);
                 result = Math.tan(radians);
                 resultView.setText(Double.toString(result));
@@ -309,7 +321,7 @@ public class AdvancedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 action = LN;
-                double tmp = new Float(mathText.toString());
+                double tmp = getCorrectValue();
 
                 result = Math.log(tmp);
                 resultView.setText(Double.toString(result));
@@ -340,7 +352,7 @@ public class AdvancedActivity extends AppCompatActivity {
                 action = POW2;
                 double tmp;
                 try {
-                    tmp = new Float(mathText.toString());
+                    tmp = getCorrectValue();
                     result = Math.pow(tmp, 2);
                 } catch (Exception e) {
                     result = Math.pow(0, 2);
@@ -370,12 +382,7 @@ public class AdvancedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 action = LOG;
-                double tmp;
-                try {
-                    tmp = new Float(mathText.toString());
-                } catch (Exception e) {
-                    result = Math.log(0);
-                }
+                double tmp =getCorrectValue();
                 syntA = result;
                 resultView.setText(Double.toString(result));
 
