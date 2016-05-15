@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 public class BasicActivity extends AppCompatActivity {
 
-    private float syntA = 0;
-    private float syntB = 0;
-    private float result = 0;
+    private static float syntA = 0;
+    private static float syntB = 0;
+    private static float result = 0;
     private StringBuilder mathText = new StringBuilder();
 
     private static View view;
@@ -335,8 +335,22 @@ public class BasicActivity extends AppCompatActivity {
         bplusminus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                float tmp = new Float(resultView.getText().toString());
-                resultView.setText(Float.toString(-1 * tmp));
+
+
+                String valueofString=resultView.getText().toString();
+                float tmp ;
+
+                if (valueofString.equals("0")|valueofString.isEmpty()){
+                    resultView.setText("0");
+                }
+                else{
+                    tmp = new Float(valueofString);
+                resultView.setText(mathText=new StringBuilder(Float.toString(-1 * tmp)));
+
+                    syntA = tmp* -1;
+                }
+
+
 
             }
         });

@@ -11,10 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class AdvancedActivity extends AppCompatActivity {
-    private double syntA = 0;
+    private static double syntA = 0;
     private static final String LOG_TAG = AdvancedActivity.class.getSimpleName();
-    private double syntB = 0;
-    private double result = 0;
+    private static double syntB = 0;
+    private static double result = 0;
     private StringBuilder mathText = new StringBuilder();
     private int action = NOTHING;
 
@@ -50,14 +50,14 @@ public class AdvancedActivity extends AppCompatActivity {
         tv.setText(mathText);
     }
 
-    private double getCorrectValue(){
+    private double getCorrectValue() {
         try {
             if (!resultFlag) {
                 return Float.parseFloat(mathText.toString());
             } else return result;
 
         } catch (Exception e) {
-            return  0;
+            return 0;
         }
 
     }
@@ -96,7 +96,6 @@ public class AdvancedActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     mathText.append("0");
-
                     resultView.setText(mathText);
                 }
             });
@@ -200,7 +199,6 @@ public class AdvancedActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     handleOperations(resultView);
                     action = PLUS;
-
                 }
             });
         }
@@ -244,8 +242,13 @@ public class AdvancedActivity extends AppCompatActivity {
             bclear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mathText.delete(0, mathText.length());
-                    resultView.setText(mathText);
+
+                    mathText.delete(0, mathText.length() + 1);
+                    resultView.setText("0");
+                    resultFlag = false;
+                    syntA = 0;
+                    syntB = 0;
+                    result = 0;
                 }
             });
         }
@@ -308,7 +311,9 @@ public class AdvancedActivity extends AppCompatActivity {
         btan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 action = TAN;
+
                 double tmp = getCorrectValue();
                 double radians = Math.toRadians(tmp);
                 result = Math.tan(radians);
@@ -321,11 +326,16 @@ public class AdvancedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 action = LN;
+                resultFlag = true;
                 double tmp = getCorrectValue();
-
-                result = Math.log(tmp);
-                resultView.setText(Double.toString(result));
-                syntA = result;
+                if (tmp == 0) {
+                    Snackbar.make(findViewById(R.id.advanced_layout), "you can't divorced 0", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                } else {
+                    result = Math.log(tmp);
+                    resultView.setText(Double.toString(result));
+                    syntA = result;
+                }
             }
         });
 
@@ -334,10 +344,21 @@ public class AdvancedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 action = SQRT;
+                resultFlag = true;
                 double tmp;
                 try {
-                    tmp = new Float(mathText.toString());
-                    result = Math.sqrt(tmp);
+                    if (result != 0)
+                        tmp = result;
+                    else
+                        tmp = new Float(mathText.toString());
+                    if (resultFlag) {
+                        if (tmp >= 0)
+                            result = Math.sqrt(tmp);
+                        else
+                            Snackbar.make(findViewById(R.id.advanced_layout), "you can't get sqrt value ", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                    } else
+                        result = Math.sqrt(tmp);
                 } catch (Exception e) {
                     result = Math.sqrt(0);
                 }
@@ -352,7 +373,9 @@ public class AdvancedActivity extends AppCompatActivity {
                 action = POW2;
                 double tmp;
                 try {
-                    tmp = getCorrectValue();
+                    if (resultFlag) tmp = syntA;
+                    else
+                        tmp = getCorrectValue();
                     result = Math.pow(tmp, 2);
                 } catch (Exception e) {
                     result = Math.pow(0, 2);
@@ -382,10 +405,9 @@ public class AdvancedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 action = LOG;
-                double tmp =getCorrectValue();
+                double tmp = getCorrectValue();
                 syntA = result;
                 resultView.setText(Double.toString(result));
-
 
 
             }
@@ -439,7 +461,7 @@ public class AdvancedActivity extends AppCompatActivity {
                                 resultView.setText("0");
                             }
                             if (syntB == 0) {
-                                Snackbar.make(findViewById(R.id.basic_layout), "you can't divorced 0", Snackbar.LENGTH_LONG)
+                                Snackbar.make(findViewById(R.id.advanced_layout), "you can't divorced 0", Snackbar.LENGTH_LONG)
                                         .setAction("Action", null).show();
                                 break;
                             } else {
@@ -474,8 +496,17 @@ public class AdvancedActivity extends AppCompatActivity {
         bplusminus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                float tmp = new Float(resultView.getText().toString());
-                resultView.setText(Float.toString(-1 * tmp));
+                String valueofString = resultView.getText().toString();
+                float tmp;
+
+                if (valueofString.equals("0") | valueofString.isEmpty()) {
+                    resultView.setText("0");
+                } else {
+                    tmp = new Float(valueofString);
+                    resultView.setText(mathText = new StringBuilder(Float.toString(-1 * tmp)));
+
+                    syntA = tmp * -1;
+                }
 
             }
         });
