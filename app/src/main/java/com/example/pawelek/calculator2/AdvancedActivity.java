@@ -329,7 +329,12 @@ public class AdvancedActivity extends AppCompatActivity {
             public void onClick(View v) {
                 obliczaj();
 
-                double tmp = Double.valueOf(wyswietlacz.getText().toString());
+                double tmp;
+                try{
+                    tmp= Double.valueOf(wyswietlacz.getText().toString());}
+                catch (Exception e){
+                    tmp=0;
+                }
                 double sinus = Math.sin(tmp);
                 wyswietlacz.setText(String.valueOf(sinus));
             }
@@ -339,8 +344,12 @@ public class AdvancedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 obliczaj();
-
-                double tmp = Double.valueOf(wyswietlacz.getText().toString());
+                double tmp;
+                try{
+                    tmp= Double.valueOf(wyswietlacz.getText().toString());}
+                catch (Exception e){
+                    tmp=0;
+                }
                 double cosinus = Math.cos(tmp);
                 wyswietlacz.setText(String.valueOf(cosinus));
             }
@@ -351,7 +360,12 @@ public class AdvancedActivity extends AppCompatActivity {
             public void onClick(View v) {
                 obliczaj();
 
-                double tmp = Double.valueOf(wyswietlacz.getText().toString());
+                double tmp;
+                try{
+                    tmp= Double.valueOf(wyswietlacz.getText().toString());}
+                catch (Exception e){
+                    tmp=0;
+                }
                 double tangens = Math.tan(tmp);
                 wyswietlacz.setText(String.valueOf(tangens));
             }
@@ -431,7 +445,12 @@ public class AdvancedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 obliczaj();
-                double tmp = Double.valueOf(wyswietlacz.getText().toString());
+                double tmp;
+                try {
+                 tmp = Double.valueOf(wyswietlacz.getText().toString());}
+                catch(Exception ex){
+                    tmp=0;
+                }
 
 
                 if(tmp>=0){
