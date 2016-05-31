@@ -22,7 +22,7 @@
         android:id="@+id/result_view"
         android:textAlignment="textEnd"
         android:textSize="42dp"
-        android:text="dupa"
+
         />
 
     <LinearLayout
